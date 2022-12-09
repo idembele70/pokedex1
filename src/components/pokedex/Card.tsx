@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ThumbUp from '../icons/ThumbUp';
 const Container = styled.div`
@@ -148,6 +149,7 @@ const Card = ({img,id,name,type}:CardProps) => {
   else 
   localStorage.setItem("pokedex1", JSON.stringify([]))
 }, [id])
+const {pathname} = useLocation()
 const handleLike = (id:string) => { 
   const LikedList = localStorage.getItem("pokedex1")
   if(LikedList !== null){
@@ -158,8 +160,10 @@ const handleLike = (id:string) => {
       )
       localStorage.setItem("pokedex1", JSON.stringify(newLikedList))
       setIsLiked(false)
+      if(pathname === "/liked")
+      window.location.reload()
     }
-    else{
+    else {
         setIsLiked(true)
         localStorage.setItem("pokedex1", JSON.stringify([...LikedListParse, id]))
       }
