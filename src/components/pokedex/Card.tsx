@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import ThumbUp from '../icons/ThumbUp';
 const Container = styled.div`
@@ -137,7 +137,34 @@ const Card = ({img,id,name,type}:CardProps) => {
     e.currentTarget.onerror = null;
     e.currentTarget.src = ErrorImgLink
   }
-
+  const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    const LikedList = localStorage.getItem("pokedex1")
+    if(LikedList !== null){
+    const LikedListParse = JSON.parse(LikedList) as string[]
+    if(LikedListParse.find(LikedId=>LikedId === id))
+    setIsLiked(true)
+  }
+  else 
+  localStorage.setItem("pokedex1", JSON.stringify([]))
+}, [id])
+const handleLike = (id:string) => { 
+  const LikedList = localStorage.getItem("pokedex1")
+  if(LikedList !== null){
+    const LikedListParse = JSON.parse(LikedList) as string[]
+    if(LikedListParse.find(LikedId=>LikedId === id)){
+      const newLikedList = LikedListParse.filter(
+        LikedId=>LikedId !== id
+      )
+      localStorage.setItem("pokedex1", JSON.stringify(newLikedList))
+      setIsLiked(false)
+    }
+    else{
+        setIsLiked(true)
+        localStorage.setItem("pokedex1", JSON.stringify([...LikedListParse, id]))
+      }
+  }
+   }
   const ErrorImgLink = `${process.env.PUBLIC_URL}/img/Pokeball.png`
   return (
     <Container>
@@ -153,7 +180,7 @@ const Card = ({img,id,name,type}:CardProps) => {
           )
         }
       </Info>
-      <ThumbUpContainer isLiked={false}>
+      <ThumbUpContainer isLiked={isLiked} onClick={()=>handleLike(id)}>
         <ThumbUp/>
       </ThumbUpContainer>
     </Container>

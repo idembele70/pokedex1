@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Card from '../components/pokedex/Card';
 import data from '../components/utils/data';
 
-const Container = styled.div`
+export const CardContainer = styled.div`
   width:100%;
   max-width:985px;
   display:flex;
@@ -13,11 +13,11 @@ const Container = styled.div`
 `;
 const Pokedex = () => {
   return (
-    <Container>
+    <CardContainer>
       {data.map(
         ({id, img,name,type})=><Card key={id} type={type} img={img} name={name} id={id}  />
       )}
-    </Container>
+    </CardContainer>
   )
 }
 
