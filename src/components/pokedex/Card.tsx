@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ThumbUp from '../icons/ThumbUp';
@@ -191,4 +191,4 @@ const handleLike = (id:string) => {
   )
 }
 
-export default Card 
+export default memo(Card)
