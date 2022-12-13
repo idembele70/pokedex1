@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card, { CardProps } from '../components/pokedex/Card';
 import data from '../components/utils/data';
-import { CardContainer } from './Pokedex';
+import { CardContainer } from '../components/pokedex/Cards';
 import styled from 'styled-components';
 const EmptyContainer = styled.div`
   
